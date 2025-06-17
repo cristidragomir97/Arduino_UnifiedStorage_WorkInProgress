@@ -794,9 +794,11 @@ Class representing a File
 | [`getParentFolder`](#class_u_file_1a087b79b6d62a3ed122d1f8b0f25b0d24) | Returns a reference to the parent folder of the current folder. |
 | [`getPath`](#class_u_file_1a122edcf553a8929b703d70c6aa8a6e80) | Returns the path of the directory. |
 | [`getPathAsString`](#class_u_file_1a5adef9f3d538f92e51e52c4b1f3ada76) | Returns the path of the directory. |
-| [`available`](#class_u_file_1a82ad0fb6cffaf23aea794b508ec57bbb) | Returns the number of bytes available to read. |
+| [`available`](#class_u_file_1a9bb4f53600f71df2191bc5be059f4921) | Returns the number of bytes available to read. |
 | [`read`](#class_u_file_1a62b544ebe9c3b144268016e6427917b5) | Returns one byte from the file. |
 | [`write`](#class_u_file_1a4db87498c1a4205145816c14df704de7) | Writes one byte to the file. |
+| [`tell`](#class_u_file_1a4a6c3b450e1e075a25b5cd99b9d7d6e6) | Returns the current position in the file. |
+| [`flush`](#class_u_file_1ae57576cfc880c4bebdb6ac89f98e1966) | Returns the size of the file. |
 
 ## Members
 
@@ -1145,10 +1147,10 @@ Returns the path of the directory.
 The path of the file as a String
 <hr />
 
-### `available` <a id="class_u_file_1a82ad0fb6cffaf23aea794b508ec57bbb" class="anchor"></a>
+### `available` <a id="class_u_file_1a9bb4f53600f71df2191bc5be059f4921" class="anchor"></a>
 
 ```cpp
-uint32_t available()
+size_t available()
 ```
 
 Returns the number of bytes available to read.
@@ -1179,6 +1181,30 @@ Writes one byte to the file.
 
 #### Parameters
 * `a` uint8_t value representing the byte to write
+<hr />
+
+### `tell` <a id="class_u_file_1a4a6c3b450e1e075a25b5cd99b9d7d6e6" class="anchor"></a>
+
+```cpp
+long tell()
+```
+
+Returns the current position in the file.
+
+#### Returns
+The current position in the file as long
+<hr />
+
+### `flush` <a id="class_u_file_1ae57576cfc880c4bebdb6ac89f98e1966" class="anchor"></a>
+
+```cpp
+bool flush()
+```
+
+Returns the size of the file.
+
+#### Returns
+The size of the file in bytes as size_t
 <hr />
 
 # class `USBStorage` <a id="class_u_s_b_storage" class="anchor"></a>
