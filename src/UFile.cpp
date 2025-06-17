@@ -69,21 +69,48 @@ bool UFile::seek(size_t offset) {
     return (result == 0);
 }
 
-uint32_t UFile::available() {
-    // Check the available data in the file
-    if (filePointer == nullptr) {
-        // File pointer is not valid
-        return 0;
+    size_t UFile::available() {
+
+        if (filePointer == nullptr) {
+            return 0;
+        }
+
+        // Get current position safely
+        long currentPosition = ftell(filePointer);
+        if (currentPosition == -1L) {
+            Arduino_UnifiedStorage::debugPrint("[File][available][ERROR] Failed to get current position: " + String(path.c_str()));
+            return 0;
+        }
+
+        // Seek to end of file
+        if (fseek(filePointer, 0L, SEEK_END) != 0) {
+            Arduino_UnifiedStorage::debugPrint("[File][available][ERROR] Failed to seek to end of file: " + String(path.c_str()));
+            return 0;
+        }
+
+        // Get file size safely
+        long fileSize = ftell(filePointer);
+        if (fileSize == -1L) {
+            Arduino_UnifiedStorage::debugPrint("[File][available][ERROR] Failed to get file size: " + String(path.c_str()));
+            return 0;
+        }
+
+        // Return to original position
+        if (fseek(filePointer, currentPosition, SEEK_SET) != 0) {
+            Arduino_UnifiedStorage::debugPrint("[File][available][ERROR] Failed to restore file position: " + String(path.c_str()));
+            return 0;
+        }
+
+        // Calculate available bytes
+        long availableBytes = fileSize - currentPosition;
+        if (availableBytes < 0) {
+            availableBytes = 0;
+        }
+
+        Arduino_UnifiedStorage::debugPrint("[File][available][INFO] Available bytes: " + String(availableBytes));
+        return static_cast<size_t>(availableBytes);
     }
 
-        int currentPosition = ftell(filePointer);
-        fseek(filePointer, 0, SEEK_END);
-        int fileSize = ftell(filePointer);
-        fseek(filePointer, currentPosition, SEEK_SET);
-
-        Arduino_UnifiedStorage::debugPrint("[File][available][INFO] Available bytes in file: " + String(fileSize - currentPosition));
-        return (fileSize - currentPosition);
-    }
 
     int UFile::read() {
         // Read a single byte from the file
@@ -330,3 +357,34 @@ uint32_t UFile::available() {
             String UFile::getPathAsString() {
                 return String(path.c_str());
             }
+
+    bool UFile::flush(){
+        if (filePointer == nullptr) {
+            Arduino_UnifiedStorage::debugPrint("[File][flush][ERROR] File pointer is not valid");
+            return false;
+        }
+
+        if (fflush(filePointer) != 0) {
+            Arduino_UnifiedStorage::debugPrint("[File][flush][ERROR] Failed to flush file: " + String(path.c_str()));
+            return false;
+        }
+
+        Arduino_UnifiedStorage::debugPrint("[File][flush][INFO] File flushed successfully: " + String(path.c_str()));
+        return true;
+    }
+
+    long UFile::tell(){
+        if (filePointer == nullptr) {
+            Arduino_UnifiedStorage::debugPrint("[File][tell][ERROR] File pointer is not valid");
+            return -1L;
+        }
+
+        long pos = ftell(filePointer);
+        if (pos == -1L) {
+            Arduino_UnifiedStorage::debugPrint("[File][tell][ERROR] Failed to get current position: " + String(path.c_str()));
+        } else {
+            Arduino_UnifiedStorage::debugPrint("[File][tell][INFO] Current position in file: " + String(pos));
+        }
+
+        return pos;
+    }

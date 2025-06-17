@@ -184,7 +184,7 @@ public:
    * @brief Returns the number of bytes available to read
    * @return The number of bytes available to read as int
    */
-  uint32_t available();
+  size_t available();
 
   /**
    * @brief Returns one byte from the file 
@@ -197,6 +197,18 @@ public:
    * @param a uint8_t value representing the byte to write
    */
   size_t write(uint8_t value);
+
+  /**
+   * @brief Returns the current position in the file
+   * @return The current position in the file as long
+   */
+  long tell(); 
+
+  /**
+   * @brief Returns the size of the file
+   * @return The size of the file in bytes as size_t
+   */
+  bool flush();
 
 
 private:
