@@ -451,6 +451,7 @@ Represents internal storage using the Arduino Unified Storage library.
 --------------------------------|---------------------------------------------
 | [`InternalStorage`](#class_internal_storage_1ac45948ef554bc659efed81240140192e) | Constructs an [InternalStorage](#class_internal_storage) object with default settings. If no partitions are available, it restores the default partitioning scheme (See [restoreDefaultPartitions()](#class_internal_storage_1ace77d2372832c2f9ef39d382cc443259) for more info). If partitions are available, it sets the partition number, file system type, and partition name based on the last partition available. When using the default partitioning scheme the last partition would be the user partition. |
 | [`InternalStorage`](#class_internal_storage_1ac13cad019a2ae66647d1c3604690eca7) | Constructs an [InternalStorage](#class_internal_storage) object with the specified partition, name, and file system. |
+| [`~InternalStorage`](#class_internal_storage_1a718df11687329b437bc4e2bf420490c0) |  |
 | [`begin`](#class_internal_storage_1a984731348dfbdade84e24250133a033e) | Initializes the internal storage. |
 | [`begin`](#class_internal_storage_1a90cd409874d9c578ce3add4df88875e5) | Initializes the internal storage with the specified file system. |
 | [`unmount`](#class_internal_storage_1a663446e2135a4e91d7fdb8ca638cc027) | Unmounts the internal storage. |
@@ -487,6 +488,14 @@ Constructs an [InternalStorage](#class_internal_storage) object with the specifi
 * `name` The name of the partition. 
 
 * `fs` The desired file system (FS_FAT or FS_LITTLEFS).
+<hr />
+
+### `~InternalStorage` <a id="class_internal_storage_1a718df11687329b437bc4e2bf420490c0" class="anchor"></a>
+
+```cpp
+~InternalStorage()
+```
+
 <hr />
 
 ### `begin` <a id="class_internal_storage_1a984731348dfbdade84e24250133a033e" class="anchor"></a>
@@ -775,6 +784,7 @@ Class representing a File
 | [`changeMode`](#class_u_file_1a744ad88f2037e87e3f5375c7aec28f6d) | Closes the file, and opens it again with a new file mode. |
 | [`open`](#class_u_file_1aa52ff2913386374e6e83ba35f595d213) | Opens a file with the specified mode. |
 | [`open`](#class_u_file_1a0247abf7053b47463f73ca8cb1c7c23c) | Opens a file with the specified mode. |
+| [`open`](#class_u_file_1a013a90e9e0a4b44a0fde722f1e9af6bc) | Opens a file that was already initialized with a path. |
 | [`close`](#class_u_file_1ab5731b8e40a87a44a7322bf151597c55) | Closes the file and releases any allocated resources. |
 | [`seek`](#class_u_file_1aa117a19e5efe6508e5e87ab65abbb560) | Seeks to a specific position in the file. |
 | [`read`](#class_u_file_1a8192f041831d58ba8186798676c5ad3a) | Reads data from the file into a buffer. |
@@ -877,6 +887,21 @@ Opens a file with the specified mode.
 * `String` filename - The name of the file to open. 
 
 * `mode` The file mode (READ, WRITE, or APPEND). 
+
+#### Returns
+True if the file was opened successfully, false otherwise.
+<hr />
+
+### `open` <a id="class_u_file_1a013a90e9e0a4b44a0fde722f1e9af6bc" class="anchor"></a>
+
+```cpp
+bool open(FileMode mode)
+```
+
+Opens a file that was already initialized with a path.
+
+#### Parameters
+* `mode` The file mode (READ, WRITE, or APPEND). The default is READ. 
 
 #### Returns
 True if the file was opened successfully, false otherwise.
