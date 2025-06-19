@@ -182,7 +182,7 @@ Creates a file inside the directory.
 * `const` char * fileName - The name of the file to create. 
 
 #### Returns
-A File object if successful, NULL if not.
+A File object. If the file could not be created, the File object will be empty. You can check if the file was created successfully by checking if the `isOpen()` method returns true.
 <hr />
 
 ### `createFile` <a id="class_folder_1a44255e2c0c4ffa37d7637a601bc590f6" class="anchor"></a>
@@ -799,6 +799,7 @@ Class representing a File
 | [`write`](#class_u_file_1a4db87498c1a4205145816c14df704de7) | Writes one byte to the file. |
 | [`tell`](#class_u_file_1a4a6c3b450e1e075a25b5cd99b9d7d6e6) | Returns the current position in the file. |
 | [`flush`](#class_u_file_1ae57576cfc880c4bebdb6ac89f98e1966) | Returns the size of the file. |
+| [`isOpen`](#class_u_file_1a6b06acf8adbf1f56c5c2f1a1565b7e2d) | Checks if the file is open. |
 
 ## Members
 
@@ -1205,6 +1206,18 @@ Returns the size of the file.
 
 #### Returns
 The size of the file in bytes as size_t
+<hr />
+
+### `isOpen` <a id="class_u_file_1a6b06acf8adbf1f56c5c2f1a1565b7e2d" class="anchor"></a>
+
+```cpp
+bool isOpen() const
+```
+
+Checks if the file is open.
+
+#### Returns
+True if the file is open, false otherwise
 <hr />
 
 # class `USBStorage` <a id="class_u_s_b_storage" class="anchor"></a>
