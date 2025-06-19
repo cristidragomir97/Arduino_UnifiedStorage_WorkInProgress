@@ -210,6 +210,12 @@ public:
    */
   bool flush();
 
+  /**
+   * @brief Checks if the file is open
+   * @return True if the file is open, false otherwise
+   */
+  bool isOpen() const;
+
 
 private:
   FILE* filePointer;

@@ -388,3 +388,7 @@ bool UFile::seek(size_t offset) {
 
         return pos;
     }
+
+    bool UFile::isOpen() const {
+        return filePointer != nullptr;
+    }

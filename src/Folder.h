@@ -39,7 +39,7 @@ class Folder {
     /**
      * @brief Creates a file inside the directory.
      * @param const char * fileName - The name of the file to create.
-     * @return A File object if successful, NULL if not. 
+     * @return A File object. If the file could not be created, the File object will be empty. You can check if the file was created successfully by checking if the `isOpen()` method returns true.
      */
     UFile createFile(const char * fileName, FileMode fmode);
 
